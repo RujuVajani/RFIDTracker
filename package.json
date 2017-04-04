@@ -14,8 +14,7 @@
     "clean": "rimraf lib",
     "lint": "tslint --format verbose 'src/**/*.ts'",
     "test": "mocha --require source-map-support/register --recursive lib/system-tests/**/*-spec.js",
-    "watch": "npm run build -- --watch",
-    "watch:test": "npm run test -- --watch"
+    "run": "npm run build && node lib/index"
   },
   "dependencies": {
     "ts-loader": "^1.3.3"
@@ -32,6 +31,6 @@
     "typescript-formatter": "^3.1.0"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=6.0.0"
   }
 }
