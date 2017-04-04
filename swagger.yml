@@ -26,7 +26,7 @@ paths:
             $ref: '#/definitions/RegisterTshirtRequest'
       responses:
         200:
-          description: Information about the t-shirt only (no pastLocations)
+          description: Information about the t-shirt
           schema:
             $ref: '#/definitions/TshirtDto'
     get:
@@ -40,27 +40,7 @@ paths:
           type: string
       responses:
         200:
-          description: Information about the t-shirt only (no pastLocations)
-          schema:
-            $ref: '#/definitions/TshirtDto'
-    post:
-      operationId: updateTshirt
-      description: |
-        Operation called when one wants to change details of a t-shirt including it's location
-        (last scan station).
-      parameters:
-        - name: rfid
-          in: path
-          required: true
-          type: string
-        - name: request
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/UpdateTshirtRequest'
-      responses:
-        200:
-          description: Information about the t-shirt only (no pastLocations)
+          description: Information about the t-shirt
           schema:
             $ref: '#/definitions/TshirtDto'
 
@@ -80,6 +60,62 @@ paths:
           schema:
             $ref: '#/definitions/TshirtDto'
 
+  '/box/{rfid}':
+    put:
+      operationId: registerBox
+      description: |
+        This service is called when a box is packed with t-shirts inside it. The rfid in the 
+        query is the RFID attached to the box.
+      parameters:
+        - name: rfid
+          in: path
+          required: true
+          type: string
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/RegisterBoxRequest'
+      responses:
+        200:
+          description: Information about the box
+          schema:
+            $ref: '#/definitions/BoxDto'
+    get:
+      operationId: getBox
+      description: |
+        Operation to be called when one wants details of a box by it's RFID tag
+      parameters:
+        - name: rfid
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Information about the box
+          schema:
+            $ref: '#/definitions/BoxDto'
+
+  '/rfid/{rfid}':
+    post:
+      operationId: trackRfid
+      description: |
+        Operation called when a RFID tag passes a scanning location. It can be a box or
+        a t-shirt.
+      parameters:
+        - name: rfid
+          in: path
+          required: true
+          type: string
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TrackRfidRequest'
+      responses:
+        204:
+          description: Success, no information is sent back
+
 definitions:
   RegisterTshirtRequest:
     type: object
@@ -95,7 +131,7 @@ definitions:
       - size
       - label
 
-  UpdateTshirtRequest:
+  TrackRfidRequest:
     type: object
     properties:
       lastLocation:
@@ -136,4 +172,22 @@ definitions:
     required:
       - timestamp
       - location
+
+  RegisterBoxRequest:
+    properties:
+      tshirtRfids:
+        type: array
+        items:
+          type: string
+    required:
+      - tshirtRfids
+
+  BoxDto:
+    properties:
+      tshirtRfids:
+        type: array
+        items:
+          type: string
+    required:
+      - tshirtRfids
 
