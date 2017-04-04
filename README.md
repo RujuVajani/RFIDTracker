@@ -1,5 +1,12 @@
 # Node Programmer Test
 
+## Background
+
+Imagine you need to implement server to track shipments of RFID enabled t-shirts. Your
+server is notified every time a t-shirt passes checkpoints. The t-shirts can also be packed
+into boxes and then only the box as a whole is being tracked. Your goal is to keep track
+of where each t-shirt has been last seen.
+
 ## Assignment
 
 There is a swagger.yml file, implement a server conforming to the specification and storing

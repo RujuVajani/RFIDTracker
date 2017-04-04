@@ -1,0 +1,139 @@
+swagger: '2.0'
+
+info:
+  version: "1.0"
+  title: "Node Programmer Test"
+
+host: node.example.com
+basePath: /rest/1.0
+
+paths:
+  '/tshirt/{rfid}':
+    put:
+      operationId: registerTshirt
+      description: |
+        This service is called once for each T-shirt when a RFID tag is sewn into it. It
+        will register the RFID tag to the database and assign it last location of Manufacturing.
+      parameters:
+        - name: rfid
+          in: path
+          required: true
+          type: string
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/RegisterTshirtRequest'
+      responses:
+        200:
+          description: Information about the t-shirt only (no pastLocations)
+          schema:
+            $ref: '#/definitions/TshirtDto'
+    get:
+      operationId: getTshirt
+      description: |
+        Operation to be called when one wants details of a t-shirt by it's rfid tag.
+      parameters:
+        - name: rfid
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Information about the t-shirt only (no pastLocations)
+          schema:
+            $ref: '#/definitions/TshirtDto'
+    post:
+      operationId: updateTshirt
+      description: |
+        Operation called when one wants to change details of a t-shirt including it's location
+        (last scan station).
+      parameters:
+        - name: rfid
+          in: path
+          required: true
+          type: string
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateTshirtRequest'
+      responses:
+        200:
+          description: Information about the t-shirt only (no pastLocations)
+          schema:
+            $ref: '#/definitions/TshirtDto'
+
+  '/tshirt/{rfid}/history':
+    get:
+      operationId: getTshirtLocationHistory
+      description: |
+        Operation to be called when one wants details of when was a particular t-shirt and when.
+      parameters:
+        - name: rfid
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Information about the t-shirt historical location
+          schema:
+            $ref: '#/definitions/TshirtDto'
+
+definitions:
+  RegisterTshirtRequest:
+    type: object
+    properties:
+      color:
+        type: string
+      size:
+        type: string
+      label:
+        type: string
+    required:
+      - color
+      - size
+      - label
+
+  UpdateTshirtRequest:
+    type: object
+    properties:
+      lastLocation:
+        type: string
+    required:
+      - lastLocation
+
+  TshirtDto:
+    properties:
+      color:
+        type: string
+      size:
+        type: string
+      label:
+        type: string
+      rfid:
+        type: string
+      lastLocation:
+        type: string
+      pastLocations:
+        type: array
+        items:
+          $ref: '#/definitions/TshirtLocationDto'
+    required:
+      - color
+      - size
+      - label
+      - rfid
+      - lastLocation
+
+  TshirtLocationDto:
+    properties:
+      timestamp:
+        type: string
+        format: date-time
+      location:
+        type: string
+    required:
+      - timestamp
+      - location
+
