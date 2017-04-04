@@ -12,6 +12,7 @@
   "scripts": {
     "build": "npm run clean && npm run lint && tsc",
     "clean": "rimraf lib",
+    "wipe": "rimraf lib node_modules",
     "lint": "tslint --format verbose 'src/**/*.ts'",
     "test": "mocha --require source-map-support/register --recursive lib/system-tests/**/*-spec.js",
     "run": "npm run build && node lib/index"
