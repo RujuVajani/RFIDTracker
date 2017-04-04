@@ -18,6 +18,9 @@ Implement tests using a framework of your preference.
 You may use any library(ies) of your choice. Use preferrably typescript, if you're not
 familiar with it, you may use javascript. Node6 will be used.
 
+Commit often to show how you progress. After you're finished, please make sure everything is committed,
+zip your directory (including the .git subdirectory) and send it back.
+
 ## Additional Questions
 
 1. Describe your solution in a few words (expect an experienced programmer reading it) and describe
