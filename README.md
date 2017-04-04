@@ -27,4 +27,5 @@ familiar with it, you may use javascript. Node6 will be used.
 4. How do you approach logging in Node?
 5. What is an event loop in Node and how does it interact with asynchronous tasks?
 6. How do you handle errors?
+7. How do you prefer to receive configuration?
 
