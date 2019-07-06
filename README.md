@@ -16,7 +16,7 @@ guide on how to initialize it if needed.
 Implement tests using a framework of your preference.
 
 You may use any library(ies) of your choice. Use preferrably typescript, if you're not
-familiar with it, you may use javascript. Node6 will be used.
+familiar with it, you may use javascript. Node6 will be used, please feel free to upgrade to a later version.
 
 Commit often to show how you progress. After you're finished, please make sure everything is committed,
 zip your directory (including the .git subdirectory) and send it back.
